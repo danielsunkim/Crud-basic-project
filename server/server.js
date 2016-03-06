@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.route('/')
   .get(function (req, res) {
     res.render('index.html');
-  })
+  });
 
 var port = process.env.port || 3000;
 
