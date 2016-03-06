@@ -1,0 +1,25 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "basic-crud-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsunkim/Crud-basic-project.git"
+  },
+  "author": "DK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielsunkim/Crud-basic-project/issues"
+  },
+  "homepage": "https://github.com/danielsunkim/Crud-basic-project#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.6",
+    "node": "0.0.0"
+  }
+}
