@@ -1,14 +1,25 @@
 <% include ./partials/header %>
 
-<h1>Index page!</h1>
-<h2>The users</h2>
-<%  users.forEach(function(user) { %>
-  <div>
-    <ol>
-      <li><%= user.name %></li>
-    </ol>
-  </div>
-<%  }) %>
+<div class="ui main text container segment">
+<h2>List all the users</h2>
+  <div class="ui segment">
+      <div>
+        <!-- If false, tell the user to create a new user -->
+        <% if(users.users === false){ %>
+         <h5>There is no users, click the "Create a user" tab above to create one!</h5>
+        <% } else{ %>
+        <!-- otherwise, iterate through the users collection and list them -->
+          <% users.forEach(function(user) { %>
+          <ul>
+            <li><a href="/user/<%= user._id %>/edit"><i class="exchange icon"></i></a> <%=user.name%></li>
+          </ul>
+          <%  }) %>
 
+        <% } %>
+
+
+      </div>
+  </div>
+</div>
 
 <% include ./partials/footer %>

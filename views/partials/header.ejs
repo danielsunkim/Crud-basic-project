@@ -2,6 +2,28 @@
 <html>
   <head>
     <title>Crud project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
   </head>
   <body>
-    <p> from the headers file </p>
+    <div class="ui inverted menu">
+      <div class="ui container">
+        <div class="header item"><i class="users icon"></i>User Site</div>
+        <a href="/user" class="item">
+          <i class="home icon"></i>
+          Home
+        </a>
+        <a href="/user/new" class="item">
+          <i class="add user icon"></i>
+          Create a user
+        </a>
+        <a href="/user/:id/edit" class="item">
+          <i class="exchange icon"></i>
+          Update a user
+        </a>
+        <a href="" class="item">
+          <i class="remove user icon"></i>
+          Delete a user
+        </a>
+      </div>
+    </div>

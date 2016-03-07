@@ -1,0 +1,20 @@
+i.icon {
+  font-size: 2em;
+  color: #63B8FF;
+}
+
+.container.main {
+  margin: 7.0em;
+}
+
+li {
+  font-family: "helvetica";
+  font-weight: lighter;
+   list-style-type: none;
+}
+
+.huge.header,
+h2 {
+  text-transform: uppercase;
+  font-weight: lighter;
+}

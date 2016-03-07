@@ -8,20 +8,17 @@ module.exports = function (app, express) {
   // Read: List all users
   app.get('/user', userController.render)
   // Form to add new user
-  app.route('/user/new')
-    .get(function (req, res) {
-      console.log('Create form route');
-    });
+  app.get('/user/new', function (req, res) {
+    res.render('new');
+  });
   // Create: new user is added to the database
-  app.route('/user')
-    .post(function (req, res) {
-      console.log('Create route, posted');
-    });
-  // Update: Update a information on a user
-  app.route('/user/:id')
-    .put(function (req, res) {
-      console.log('Update this route');
-    });
+  app.post('/user', userController.userCreate);
+
+  // SHOW route:
+
+  // Update: Update a particular user
+  app.get('/user/:id/edit', userController.updateUser);
+
   // Delete: Delete a user
   app.route('/user/:id/edit')
     .delete(function (req, res) {

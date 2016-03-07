@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 // Require the config/routes
 require('./config/routes.js')(app, express);
-
 // Listen on the port number
 var port = process.env.port || 3000;
 app.listen(port, function () {
@@ -26,5 +25,5 @@ app.listen(port, function () {
 
 //export the app
 module.exports = {
-  app: app,
+  app: app
 }
