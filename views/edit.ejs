@@ -3,7 +3,8 @@
 <div class="ui main text container segment">
   <div class="ui huge header">Create a new user!</div>
   <!-- ui form gives it that nice form shape -->
-  <form class="ui form" action="/user" method="POST">
+  <!-- for some reason PUT does work in form, so we have to use a override _method -->
+  <form class="ui form" action="/user/<%= users._id %>?_method=PUT" method="POST">
     <!-- field gives it the display block -->
     <div class="field">
       <label>Name</label>

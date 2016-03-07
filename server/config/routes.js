@@ -16,8 +16,10 @@ module.exports = function (app, express) {
 
   // SHOW route:
 
-  // Update: Update a particular user
-  app.get('/user/:id/edit', userController.updateUser);
+  // Update: get request form for the edit
+  app.get('/user/:id/edit', userController.userById);
+  //Update: put request for the edit udpate
+  app.put('/user/:id', userController.updateUserById )
 
   // Delete: Delete a user
   app.route('/user/:id/edit')

@@ -2,7 +2,9 @@ var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     // Require middleware to deal with the POST request
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    // form submission doesn't work with method put or delete, need this to hack it.
+    methodOverride = require('method-override');
 
 // connect to the crud data base, if it does not exist create crud.
 mongoose.connect("mongodb://localhost/crud");
@@ -10,6 +12,9 @@ mongoose.connect("mongodb://localhost/crud");
 app.set('view engine', 'ejs');
 // Use the static files, the app.css file.
 app.use(express.static('public'));
+// Look for the _method to override form submission of put and delete
+app.use(methodOverride('_method'))
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));

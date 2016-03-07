@@ -2,6 +2,8 @@
 
 <div class="ui main text container segment">
 <h2>List all the users</h2>
+<i class="exchange icon"></i> Update a user
+<i class="remove user icon"></i> Remove a user
   <div class="ui segment">
       <div>
         <!-- If false, tell the user to create a new user -->
@@ -11,7 +13,19 @@
         <!-- otherwise, iterate through the users collection and list them -->
           <% users.forEach(function(user) { %>
           <ul>
-            <li><a href="/user/<%= user._id %>/edit"><i class="exchange icon"></i></a> <%=user.name%></li>
+            <li>
+              <a href="/user/<%= user._id %>/edit"><i class="exchange icon"></i></a>
+              <a href="/user/<%= user._id %>/edit"><i class="remove user icon"></i></a>
+              <div class="field">
+                <span class="name">Name:</span> <%=user.name%>
+              </div>
+              <div class="field">
+                <span class="name">Age:</span> <%=user.age%>
+              </div>
+              <div class="field">
+                <span class="name">Email:</span> <%=user.email%>
+              </div>
+            </li>
           </ul>
           <%  }) %>
 

@@ -1,10 +1,13 @@
 var User = require('./usersModel');
 var Q = require('q');
 
+
+// Just
 var findUser = Q.nbind(User.findOne, User),
     findUsers = Q.nbind(User.find, User),
     createUser = Q.nbind(User.create, User),
-    findUserById = Q.nbind(User.findById, User);
+    findUserById = Q.nbind(User.findById, User),
+    findAndUpdate = Q.nbind(User.findByIdAndUpdate, User);
 
 var path = {
   '/': '/user',
@@ -21,7 +24,8 @@ module.exports = {
         console.log('User was created!');
         // If successful, go to the /user route, and show the names!
         res.redirect('/user');
-      }).catch(function (err) {
+      })
+      .catch(function (err) {
         console.error('problem creating user', err);
         // If failed, stay on the /user/new page
         res.render('new');
@@ -58,7 +62,7 @@ module.exports = {
   //update: /user/:id
     // .PUT
     // Update particular user, redirect.
-  updateUser: function (req, res) {
+  userById: function (req, res) {
     // Find user by id, then do something with it
      findUserById(req.params.id)
         .then(function(foundUser) {
@@ -70,6 +74,21 @@ module.exports = {
           console.error('You got an error ', err);
           res.redirect('/user');
         });
+  },
+
+  updateUserById: function (req, res) {
+    // findAndUpdate(id, newData, callback)
+    // req.body.user coming from the form inside the edit page
+    
+    findAndUpdate(req.params.id, req.body.user)
+      .then(function (updatedUser) {
+        // if successful take back to the home page to see the udpate
+        res.redirect('/user');
+      })
+      .catch(function (err) {
+        console.error(err);
+        res.redirect('/user/'+req.params.id+'/edit');
+      })
   }
 
 

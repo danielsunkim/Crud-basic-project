@@ -3,14 +3,25 @@ i.icon {
   color: #63B8FF;
 }
 
+i.icon.remove {
+  color: red;
+}
+
 .container.main {
   margin: 7.0em;
 }
 
+
 li {
   font-family: "helvetica";
   font-weight: lighter;
-   list-style-type: none;
+  list-style-type: none;
+}
+
+.name {
+  font-weight: lighter;
+  text-transform: uppercase;
+  color: darkgrey;
 }
 
 .huge.header,
