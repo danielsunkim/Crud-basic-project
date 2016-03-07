@@ -8,15 +8,15 @@
     <div class="field">
       <label>Name</label>
       <!-- input name gives is put into the req.body.user since we named it user -->
-      <input type="text" name="user[name]" placeholder="Enter your name" required>
+      <input type="text" min="2" maxlength="10" name="user[name]" placeholder="Enter your name" required>
     </div>
     <div class="field">
       <label>Age</label>
-      <input type="number" name="user[age]" placeholder="Enter your age" required>
+      <input type="number" name="user[age]" placeholder="Enter your age" required max="5">
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="email" name="user[email]" placeholder="Enter your email" required>
+      <input type="email" name="user[email]" maxlength="25" placeholder="Enter your email" required>
     </div>
     <div class="field">
       <!-- gives it a nice round blue button -->

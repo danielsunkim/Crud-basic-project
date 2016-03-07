@@ -9,15 +9,15 @@
     <div class="field">
       <label>Name</label>
       <!-- input name gives is put into the req.body.user since we named it user -->
-      <input type="text" name="user[name]" value="<%=users.name%>">
+      <input maxlength="10" type="text" name="user[name]" value="<%=users.name%>">
     </div>
     <div class="field">
       <label>Age</label>
-      <input type="text" name="user[age]" value="<%=users.age%>">
+      <input type="number" name="user[age]" value="<%=users.age%>" max="125">
     </div>
     <div class="field">
       <label>Email</label>
-      <input type="text" name="user[email]" value="<%=users.email%>">
+      <input maxlength="25" type="email" name="user[email]" value="<%=users.email%>">
     </div>
     <div class="field">
       <!-- gives it a nice round blue button -->
