@@ -7,7 +7,8 @@ var findUser = Q.nbind(User.findOne, User),
     findUsers = Q.nbind(User.find, User),
     createUser = Q.nbind(User.create, User),
     findUserById = Q.nbind(User.findById, User),
-    findAndUpdate = Q.nbind(User.findByIdAndUpdate, User);
+    findAndUpdate = Q.nbind(User.findByIdAndUpdate, User),
+    findAndRemove = Q.nbind(User.findByIdAndRemove, User);
 
 var path = {
   '/': '/user',
@@ -21,7 +22,6 @@ module.exports = {
   userCreate: function (req, res) {
     createUser(req.body.user)
       .then(function (user) {
-        console.log('User was created!');
         // If successful, go to the /user route, and show the names!
         res.redirect('/user');
       })
@@ -39,7 +39,7 @@ module.exports = {
     }
   },
 
-  //Read: /user
+  //READ: /user
     // .GET
     // List all users
   render: function (req, res) {
@@ -48,7 +48,6 @@ module.exports = {
         console.error('User was not find!')
       } else {
         // render index with the data found
-        console.log(users.length)
         if (users.length === 0) {
           // If empty, send a false statement to the index page.
           res.render('index', {users: false});
@@ -59,9 +58,7 @@ module.exports = {
       }
     });
   },
-  //update: /user/:id
-    // .PUT
-    // Update particular user, redirect.
+
   userById: function (req, res) {
     // Find user by id, then do something with it
      findUserById(req.params.id)
@@ -75,11 +72,12 @@ module.exports = {
           res.redirect('/user');
         });
   },
-
+  //UPDATE: /user/:id/edit
+    // .GET
+    // Edit a user
   updateUserById: function (req, res) {
     // findAndUpdate(id, newData, callback)
     // req.body.user coming from the form inside the edit page
-    
     findAndUpdate(req.params.id, req.body.user)
       .then(function (updatedUser) {
         // if successful take back to the home page to see the udpate
@@ -89,6 +87,20 @@ module.exports = {
         console.error(err);
         res.redirect('/user/'+req.params.id+'/edit');
       })
+  },
+  //DESTROY: /user/:id
+    // .delete
+    // Delete a particular user, rediret.
+
+  findUserByIdAndRemove: function (req, res) {
+    findAndRemove(req.params.id)
+      .then (function (removeUser) {
+        res.redirect('/user');
+      })
+      .catch(function (err) {
+        console.error('Error', err);
+        res.redirect('/user');
+      });
   }
 
 
@@ -96,7 +108,7 @@ module.exports = {
     // Create a new user, redirect
 
 
-  //edit: /user/:id/edit
+  //UPDATE: /user/:id/edit
     // .GET
     // Edit a user
 

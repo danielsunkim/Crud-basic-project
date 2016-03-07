@@ -29,3 +29,7 @@ h2 {
   text-transform: uppercase;
   font-weight: lighter;
 }
+
+form {
+  display: inline-block;
+}

@@ -11,21 +11,18 @@ module.exports = function (app, express) {
   app.get('/user/new', function (req, res) {
     res.render('new');
   });
-  // Create: new user is added to the database
+  // CREATE: new user is added to the database
   app.post('/user', userController.userCreate);
 
   // SHOW route:
+    // Do not need it for this project.
 
-  // Update: get request form for the edit
+  // Get request for form to make an edit
   app.get('/user/:id/edit', userController.userById);
-  //Update: put request for the edit udpate
-  app.put('/user/:id', userController.updateUserById )
-
-  // Delete: Delete a user
-  app.route('/user/:id/edit')
-    .delete(function (req, res) {
-      console.log('destroy this route');
-    });
+  // UPDATE: put request for the edit udpate
+  app.put('/user/:id', userController.updateUserById );
+  // DESTROY: Delete a user
+  app.delete('/user/:id', userController.findUserByIdAndRemove);
 
 
 }

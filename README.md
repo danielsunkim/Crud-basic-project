@@ -1,6 +1,6 @@
 # Crud-basic-project
 
-* basic Crud application to print a simple "Hello World"
+* Basic crud application to Create, read, update, and destroy users.
 
 ##Setup instructions
 -Run 'npm install' in the root directory to install dependencies
