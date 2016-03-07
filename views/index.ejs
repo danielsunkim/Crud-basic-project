@@ -1,0 +1,14 @@
+<% include ./partials/header %>
+
+<h1>Index page!</h1>
+<h2>The users</h2>
+<%  users.forEach(function(user) { %>
+  <div>
+    <ol>
+      <li><%= user.name %></li>
+    </ol>
+  </div>
+<%  }) %>
+
+
+<% include ./partials/footer %>

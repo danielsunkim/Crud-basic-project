@@ -1,17 +1,20 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
+var express = require('express'),
+    app = express(),
+    mongoose = require('mongoose'),
+    // Require middleware to deal with the POST request
+    bodyParser = require('body-parser');
+
 // connect to the crud data base, if it does not exist create crud.
 mongoose.connect("mongodb://localhost/crud");
+// set the view to ejs, no need to put index.ejs, just index.
+app.set('view engine', 'ejs');
+// Use the static files, the app.css file.
+app.use(express.static('public'));
 
-// Require middleware to deal with the POST request
-var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json
 app.use(bodyParser.json());
-app.use(express.static('public'));
-// Grab static files to server files directly
 // Require the config/routes
 require('./config/routes.js')(app, express);
 
