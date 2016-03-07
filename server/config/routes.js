@@ -1,7 +1,5 @@
 var userController = require('../users/userController');
 
-
-
 module.exports = function (app, express) {
   // root directory
   app.get('/', userController.redirect)
@@ -23,6 +21,4 @@ module.exports = function (app, express) {
   app.put('/user/:id', userController.updateUserById );
   // DESTROY: Delete a user
   app.delete('/user/:id', userController.findUserByIdAndRemove);
-
-
-}
+};

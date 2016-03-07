@@ -43,34 +43,34 @@ module.exports = {
     // .GET
     // List all users
   render: function (req, res) {
-    findUsers({}, function (err, users) {
-      if (err) {
-        console.error('User was not find!')
-      } else {
+    findUsers({}) 
+      .then(function (users) {
         // render index with the data found
-        if (users.length === 0) {
+        if (users.length === 0) { 
           // If empty, send a false statement to the index page.
           res.render('index', {users: false});
         } else {
           // if successful, render index, and send data package to the index page.
           res.render('index', {users: users});
         }
-      }
-    });
+      })
+      .catch(function (err) {
+        console.error('User was not find!')
+      });
   },
 
   userById: function (req, res) {
     // Find user by id, then do something with it
-     findUserById(req.params.id)
-        .then(function(foundUser) {
-          // Render the edit page, and send over the users information
-          res.render('edit', {users: foundUser});
-        })
-        .catch(function (err) {
-          // if not, throw and error and redirect to user page
-          console.error('You got an error ', err);
-          res.redirect('/user');
-        });
+    findUserById(req.params.id)
+      .then(function(foundUser) {
+        // Render the edit page, and send over the users information
+        res.render('edit', {users: foundUser});
+      })
+      .catch(function (err) {
+        // if not, throw and error and redirect to user page
+        console.error('You got an error ', err);
+        res.redirect('/user');
+      });
   },
   //UPDATE: /user/:id/edit
     // .GET
@@ -91,7 +91,6 @@ module.exports = {
   //DESTROY: /user/:id
     // .delete
     // Delete a particular user, rediret.
-
   findUserByIdAndRemove: function (req, res) {
     findAndRemove(req.params.id)
       .then (function (removeUser) {
@@ -102,20 +101,4 @@ module.exports = {
         res.redirect('/user');
       });
   }
-
-
-    // .POST
-    // Create a new user, redirect
-
-
-  //UPDATE: /user/:id/edit
-    // .GET
-    // Edit a user
-
-
-
-  //destroy: /user/:id
-    // .delete
-    // Delete a particular user, rediret.
-
 }

@@ -8,7 +8,7 @@ var express = require('express'),
 
 // connect to the crud data base, if it does not exist create crud.
 mongoose.connect("mongodb://localhost/crud");
-// set the view to ejs, no need to put index.ejs, just index.
+// set the view engine to ejs, no need to put index.ejs, just index.
 app.set('view engine', 'ejs');
 // Use the static files, the app.css file.
 app.use(express.static('public'));
