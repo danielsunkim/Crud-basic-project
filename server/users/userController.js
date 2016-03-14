@@ -1,8 +1,10 @@
-var User = require('./usersModel');
+var User = require('./usersModel').User;
+var Animal = require('./usersModel').Animal;
+// var Animal = require('./usersModel').Animal;
+// User.User to access because it an object. This is why it wasn't working earlier
 var Q = require('q');
 
-
-// Just
+// Use promises using Q
 var findUser = Q.nbind(User.findOne, User),
     findUsers = Q.nbind(User.find, User),
     createUser = Q.nbind(User.create, User),
@@ -10,52 +12,41 @@ var findUser = Q.nbind(User.findOne, User),
     findAndUpdate = Q.nbind(User.findByIdAndUpdate, User),
     findAndRemove = Q.nbind(User.findByIdAndRemove, User);
 
-var path = {
-  '/': '/user',
-  '/user': 'index',
-  '/user/new': 'new'
-};
-
 module.exports = {
   // CREATE user,
     // If there is post request, give it the input form params, the object
   userCreate: function (req, res) {
-    createUser(req.body.user)
+    createUser(req.body)
       .then(function (user) {
         // If successful, go to the /user route, and show the names!
-        res.redirect('/user');
+        user.save(function (err, data) {
+          if ( err ) {
+            res.send(err);
+          }
+          res.status(200).json(data)
+        })
       })
       .catch(function (err) {
         console.error('problem creating user', err);
         // If failed, stay on the /user/new page
-        res.render('new');
       });
   },
-  // Redirect to a endpoint
-  redirect: function (req, res) {
+  // g
+  rootHomepage: function (req, res) {
     // if the path exist, render that path
-    if (path[req.path]) {
-      res.redirect(path[req.path]);
-    }
+    res.send("Hey there, you're at the homepage!")
   },
 
   //READ: /user
     // .GET
     // List all users
-  render: function (req, res) {
-    findUsers({}) 
+  findAllUsers: function (req, res) {
+    findUsers({})
       .then(function (users) {
-        // render index with the data found
-        if (users.length === 0) { 
-          // If empty, send a false statement to the index page.
-          res.render('index', {users: false});
-        } else {
-          // if successful, render index, and send data package to the index page.
-          res.render('index', {users: users});
-        }
+        res.status(200).json(users);
       })
       .catch(function (err) {
-        console.error('User was not find!')
+        console.error('You got an error ', err);
       });
   },
 
@@ -64,12 +55,11 @@ module.exports = {
     findUserById(req.params.id)
       .then(function(foundUser) {
         // Render the edit page, and send over the users information
-        res.render('edit', {users: foundUser});
+        res.status(200).json(foundUser);
       })
       .catch(function (err) {
         // if not, throw and error and redirect to user page
         console.error('You got an error ', err);
-        res.redirect('/user');
       });
   },
   //UPDATE: /user/:id/edit
@@ -78,14 +68,13 @@ module.exports = {
   updateUserById: function (req, res) {
     // findAndUpdate(id, newData, callback)
     // req.body.user coming from the form inside the edit page
-    findAndUpdate(req.params.id, req.body.user)
+    findAndUpdate(req.params.id)
       .then(function (updatedUser) {
         // if successful take back to the home page to see the udpate
-        res.redirect('/user');
+        res.status(200).send(updatedUser);
       })
       .catch(function (err) {
-        console.error(err);
-        res.redirect('/user/'+req.params.id+'/edit');
+        console.error('You got an error ', err);
       })
   },
   //DESTROY: /user/:id
@@ -94,11 +83,10 @@ module.exports = {
   findUserByIdAndRemove: function (req, res) {
     findAndRemove(req.params.id)
       .then (function (removeUser) {
-        res.redirect('/user');
+        res.status(200).json(removeUser);
       })
       .catch(function (err) {
-        console.error('Error', err);
-        res.redirect('/user');
+        console.error('You got an error ', err);
       });
   }
 }

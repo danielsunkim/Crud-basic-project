@@ -1,0 +1,9 @@
+<h1>Listing all the users! Click on their names to update the user information!</h1>
+<table ng-repeat="item in display" width="100%" cellspacing="2" cellpadding="0" border="0" align="center">
+  <tr>
+    <td align = "center" width="25%">ID: {{item.id}}</td>
+    <td align = "center" width="25%">Name:<a ng-click="edit(item._id)">{{ item.name }}</a></td>
+    <td align = "center" width="25%">Age: {{item.age}}</td>
+    <td align = "center" width="25%">Email: {{item.email}}</td>
+  </tr>
+</table>

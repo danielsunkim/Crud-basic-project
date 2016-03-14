@@ -1,29 +1,24 @@
-<% include ./partials/header %>
-
-<div class="ui main text container segment">
-  <div class="ui huge header">Create a new user!</div>
   <!-- ui form gives it that nice form shape -->
   <!-- for some reason PUT does work in form, so we have to use a override _method -->
-  <form class="ui form" action="/user/<%= users._id %>?_method=PUT" method="POST">
+  <form class="ui form" role="form" ng-submit="updateUser()">
+    <h2>Edit</h2>
+    {{display}}
     <!-- field gives it the display block -->
     <div class="field">
       <label>Name</label>
       <!-- input name gives is put into the req.body.user since we named it user -->
-      <input maxlength="10" type="text" name="user[name]" value="<%=users.name%>">
+      <input maxlength="10" type="text" value="adsf">
     </div>
     <div class="field">
       <label>Age</label>
-      <input type="number" name="user[age]" value="<%=users.age%>" max="125">
+      <input type="number"max="125" value={{display.age}}>
     </div>
     <div class="field">
       <label>Email</label>
-      <input maxlength="25" type="email" name="user[email]" value="<%=users.email%>">
+      <input maxlength="25" type="email" value={{display.email}}>
     </div>
     <div class="field">
       <!-- gives it a nice round blue button -->
       <input class="ui blue basic button" type="submit">
     </div>
   </form>
-</div>
-
-<% include ./partials/footer %>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</script>
+<script type="text/javascript" src="app.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+</head>
+<body>
+
+    <div class="ui main container segment" ng-app="user" ng-controller="getUser">
+
+      <h1>Hey! Click on the buttons that you want! </h1>
+      <button class="ui blue basic button" ng-click="list()">List all user</button>
+      <button class="ui red basic button" ng-click="create()">Add new user</button>
+      <button class="ui green basic button" ng-click="find()">Find user by Id</button>
+      <div id="main" class="ui segment">
+          <div ng-view></div>
+      </div>
+
+    </div>
+
+</body>
+</html>
