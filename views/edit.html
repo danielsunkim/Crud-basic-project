@@ -1,8 +1,8 @@
   <!-- ui form gives it that nice form shape -->
   <!-- for some reason PUT does work in form, so we have to use a override _method -->
-  <form class="ui form" role="form" ng-submit="updateUser()">
+  <form class="ui form" role="form" ng-controller="edit" ng-submit="update()">
     <h2>Edit</h2>
-    {{display}}
+    {{value}}
     <!-- field gives it the display block -->
     <div class="field">
       <label>Name</label>

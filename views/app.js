@@ -4,8 +4,8 @@ var user = angular.module('user', ['ngRoute']);
 //   $scope.display = 'hey';
 // }]);
 
-user.controller('getUser', ['$scope', 'userApi', '$location', '$http', '$filter',
-function ($scope, userApi, $location, $http, $filter) {
+user.controller('getUser', ['$scope', 'userApi', '$location', '$http', '$filter', 'UserService',
+function ($scope, userApi, $location, $http, $filter, UserService) {
   //Save the data from the forms inside new.html
   $scope.formData = {};
   userApi.getUser()
@@ -26,22 +26,6 @@ function ($scope, userApi, $location, $http, $filter) {
       $scope.list();
     });
   };
-
-  $scope.edit = function (id) {
-    userApi.getIdUser(id)
-      .then(function (data, err) {
-        if(err) {
-          console.error('errerrerr',err)
-          return;
-        }
-        $scope.display = data.data;
-      })
-    return $location.path( '/user/'+id+'/edit' );
-  };
-
-  $scope.update = function (id) {
-    var save = userApi.getIdUser(id);
-  }
 
   //Returns the list of users, and redirect api/users if not already on it.
   $scope.list = function () {
@@ -64,6 +48,30 @@ function ($scope, userApi, $location, $http, $filter) {
   $scope.find = function () {
     return $location.path( '/user/:id' );
   };
+
+  $scope.edit = function (id) {
+    $http({
+      method: 'GET',
+      url: '/user/'+id+'/edit'
+    }).then(function successCallback(data) {
+      UserService.setUser(data.data);
+    }, function errorCallback(err) {
+      console.log(err);
+    });
+    $location.path( '/user/'+id+'/edit' );
+  };
+
+  $scope.update = function (id) {
+    $http({
+      method: 'PUT',
+      url: '/user/'+id,
+    }).then(function successCallback(data) {
+      $location.path( '/user' );
+    }, function errorCallback(err) {
+      console.log(err);
+    });
+  };
+
 }]);
 
 user.controller('home', ['$scope', 'userApi', function ($scope, userApi) {
@@ -74,10 +82,9 @@ user.controller('getUserId', ['$scope', 'userApi', function ($scope, userApi) {
   $scope.display = 'Get user by id';
 }]);
 
-user.controller('edit', ['$scope', 'userApi', function ($scope, userApi) {
-  $scope.display = 'Edit';
+user.controller('edit', ['$scope', 'userApi', '$http', '$location', 'UserService', function ($scope, userApi, $http, $location, UserService) {
+  $scope.value = UserService.getUser();
 }]);
-
 // Configure routes
 user.config(function ($routeProvider) {
   $routeProvider
@@ -95,7 +102,7 @@ user.config(function ($routeProvider) {
     })
     .when('/user/:id/edit', {
       templateUrl: './edit.html',
-      controller: 'getUser'
+      controller: 'edit'
     })
     .when('/user/:id', {
       templateUrl: './getUserId.html',
@@ -108,12 +115,17 @@ user.factory('userApi', ['$http', '$location', function ($http, $location) {
   return {
     getUser: function () {
       return $http.get('/user');
-    },
-    postUser: function () {
-      return $http.post('/user');
-    },
-    getIdUser: function (id) {
-      return $http.get('/user/'+id+'/edit');
     }
   };
 }]);
+
+user.service('UserService', function(){
+  var editingUser;
+  this.setUser = function(user){
+    editingUser = user;
+  };
+
+  this.getUser = function(){
+    return editingUser;
+  }
+});
