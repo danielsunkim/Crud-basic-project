@@ -51,9 +51,11 @@ module.exports = {
   },
 
   userById: function (req, res) {
+    console.log('hello')
     // Find user by id, then do something with it
-    findUserById(req.params.id)
+    findUser({id: req.params.id})
       .then(function(foundUser) {
+        console.log('hello inside findusers', foundUser)
         // Render the edit page, and send over the users information
         res.status(200).json(foundUser);
       })
@@ -68,12 +70,15 @@ module.exports = {
   updateUserById: function (req, res) {
     // findAndUpdate(id, newData, callback)
     // req.body.user coming from the form inside the edit page
-    findAndUpdate(req.params.id)
+    findAndUpdate(req.params.id, req.body)
       .then(function (updatedUser) {
         // if successful take back to the home page to see the udpate
+        console.log('asdfafasdfasfdsfasdf SHIVA', updatedUser)
         res.status(200).send(updatedUser);
+
       })
       .catch(function (err) {
+        console.log('asdfafasdfasfdsfasdf ERRRORR')
         console.error('You got an error ', err);
       })
   },

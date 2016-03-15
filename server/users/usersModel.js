@@ -3,8 +3,7 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
   id: Number,
   name: String,
-  age: Number,
-  email: String
+  age: Number
 });
 
 var animalSchema = new mongoose.Schema({

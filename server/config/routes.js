@@ -14,7 +14,8 @@ module.exports = function (app, express) {
   // Get request for form to make an edit
   app.get('/user/:id/edit', userController.userById);
   // UPDATE: put request for the edit udpate
-  app.put('/user/:id', userController.updateUserById );
+  app.get('/user/:id', userController.userById);
+  app.put('/user/:id', userController.updateUserById);
   // DESTROY: Delete a user
   app.delete('/user/:id', userController.findUserByIdAndRemove);
 };

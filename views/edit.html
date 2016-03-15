@@ -1,24 +1,26 @@
-  <!-- ui form gives it that nice form shape -->
-  <!-- for some reason PUT does work in form, so we have to use a override _method -->
-  <form class="ui form" role="form" ng-controller="edit" ng-submit="update()">
-    <h2>Edit</h2>
-    {{value}}
-    <!-- field gives it the display block -->
-    <div class="field">
-      <label>Name</label>
-      <!-- input name gives is put into the req.body.user since we named it user -->
-      <input maxlength="10" type="text" value="adsf">
-    </div>
-    <div class="field">
-      <label>Age</label>
-      <input type="number"max="125" value={{display.age}}>
-    </div>
-    <div class="field">
-      <label>Email</label>
-      <input maxlength="25" type="email" value={{display.email}}>
-    </div>
-    <div class="field">
-      <!-- gives it a nice round blue button -->
-      <input class="ui blue basic button" type="submit">
-    </div>
-  </form>
+<!-- FORM -->
+<form class="ui form" ng-submit="update()">
+  <!-- NAME -->
+  <divclass="field">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control" ng-model="formData.name">
+    <span class="help-block"></span>
+  </div>
+
+  <!-- AGE -->
+  <div class="field">
+    <label>AGE</label>
+    <input type="text" name="age" class="form-control" ng-model="formData.age">
+    <span class="help-block"></span>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <button type="submit" class="ui blue basic button">
+    <span></span> Submit!
+  </button>
+</form>
+
+<!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+<pre>
+    {{ formData }}
+</pre>

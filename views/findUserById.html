@@ -1,0 +1,19 @@
+<!-- FORM -->
+<form class="ui form" ng-submit="show()">
+  <!-- NAME -->
+  <divclass="field">
+    <label>Enter a numeric ID to find a user</label>
+    <input type="text" name="id" class="form-control" placeholder="1,2,3..etc" ng-model="formData.id">
+    <span class="help-block"></span>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <button type="submit" class="ui blue basic button">
+    <span></span> Submit!
+  </button>
+</form>
+
+<!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
+<pre>
+    {{ formData }}
+</pre>

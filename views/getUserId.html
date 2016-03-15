@@ -1,15 +1,10 @@
-<!-- FORM -->
-<form class="ui form" ng-submit="filter(user.id)">
-  <!-- NAME -->
-  <divclass="field">
-    <label>Name</label>
-    <input type="text" name="name" class="form-control" placeholder="search a person by their ID number" ng-model="user.id">
-    <span class="help-block"></span>
-  </div>
-</form>
 
 
-<!-- SHOW DATA FROM INPUTS AS THEY ARE BEING TYPED -->
-<pre ng-repeat="item in data | filter: user.id">
-    {{ item.name }}
-</pre>
+<h1>Users that has been found!</h1>
+<table width="100%" cellspacing="2" cellpadding="0" border="0" align="center">
+  <tr>
+    <td align = "center" width="33%">ID: {{ display.id || 'none'}}</td>
+    <td align = "center" width="33%">Name: {{ display.name || 'none'}}</a></td>
+    <td align = "center" width="33%">Age: {{ display.age || 'none'}}</td>
+  </tr>
+</table>
