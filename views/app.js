@@ -11,13 +11,9 @@ function ($scope, userApi, $location, $http, $filter, UserService) {
   $scope.userPage = userApi.userPage;
   $scope.createPage = userApi.createPage;
   $scope.findPage = userApi.findPage;
-  $scope.editPage = userApi.editPage;
+  $scope.editingPage = userApi.editingPage;
   $scope.foundPage = userApi.foundPage;
 
-  //Current ID
-  userApi.userLength(function (data) {
-      $scope.userId = data;
-  });
 
   // Handle the post request from new.html
   $scope.processForm = function () {
@@ -41,7 +37,7 @@ function ($scope, userApi, $location, $http, $filter, UserService) {
       url: '/user/'+id+'/edit'
     }).then(function successCallback(data) {
       UserService.setUser(data.data);
-      $scope.editPage(id);
+      $scope.editingPage(id);
     }, function errorCallback(err) {
       console.error(err);
     });
@@ -84,6 +80,16 @@ function ($scope, userApi, $location, $http, $filter, UserService) {
       });
   }
 
+  $scope.delete = function (id) {
+    $http.delete('/user/'+id).then(function (data, err) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(data);
+        $scope.list();
+      }
+    });
+  };
 
 
 }]);
@@ -124,21 +130,13 @@ user.config(function ($routeProvider) {
 });
 
 // Factory
-user.factory('userApi', ['$http', '$location', function ($http, $location) {
+user.factory('userApi', ['$http', '$location', 'UserService', function ($http, $location, UserService) {
   return {
     getUser: function () {
       return $http.get('/user');
     },
-
     getUserId: function (id) {
       return $http.get('/user/'+id);
-    },
-
-    userLength: function (callback) {
-      $http.get('/user')
-        .then(function (data, err) {
-          callback(data.data.length);
-        });
     },
     //Redirect to home
     userPage: function () {
@@ -156,7 +154,7 @@ user.factory('userApi', ['$http', '$location', function ($http, $location) {
       return $location.path( '/user/'+id );
     },
     //Redirect to the edit page
-    editPage: function (id) {
+    editingPage: function (id) {
       return $location.path( '/user/'+id+'/edit' );
     }
   };
@@ -170,5 +168,5 @@ user.service('UserService', function(){
   };
   this.getUser = function(){
     return editingUser;
-  }
+  };
 });

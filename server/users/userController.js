@@ -53,9 +53,8 @@ module.exports = {
   userById: function (req, res) {
     console.log('hello')
     // Find user by id, then do something with it
-    findUser({id: req.params.id})
+    findUser({_id: req.params.id})
       .then(function(foundUser) {
-        console.log('hello inside findusers', foundUser)
         // Render the edit page, and send over the users information
         res.status(200).json(foundUser);
       })

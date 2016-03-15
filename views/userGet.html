@@ -1,8 +1,8 @@
 <h1>Listing all the users! Click on their names to update the user information!</h1>
 <table ng-repeat="item in display" width="100%" cellspacing="2" cellpadding="0" border="0" align="center">
   <tr>
-    <td align = "center" width="33%">ID: {{ item.id}}</td>
     <td align = "center" width="33%">Name: <a ng-click="editPage(item._id)">{{ item.name }}</a></td>
     <td align = "center" width="33%">Age: {{ item.age}}</td>
+    <td align = "center" width="33%"><button class="ui grey basic button"<a ng-click="delete(item._id)">Delete</button></td>
   </tr>
 </table>
